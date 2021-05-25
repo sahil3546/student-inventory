@@ -1,0 +1,102 @@
+<mat-toolbar color="primary">
+  <span>Add Student Details</span>
+  <span class="spacer"></span>
+  <button  mat-raised-button (click)="studentList()">
+    Student List 
+  </button>
+</mat-toolbar>
+<div class="example-container">
+  <div class="form-container">
+    <h1>Register Student</h1>
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label> First Name </mat-label>
+        <input
+          matInput
+          placeholder="Enter First Name"
+          formControlName="firstName"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+        />
+        <mat-error *ngIf="submitted && f.firstName.errors">
+          <div *ngIf="f.firstName.errors.required">First Name is required</div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label> Last Name </mat-label>
+        <input
+          matInput
+          formControlName="lastName"
+          placeholder="Enter Last Name"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+        />
+        <mat-error *ngIf="submitted && f.lastName.errors">
+          <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label> Email </mat-label>
+        <input
+          matInput
+          formControlName="email"
+          placeholder="Enter Email"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+        />
+        <mat-error *ngIf="submitted && f.email.errors">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <span *ngIf="f.email.errors.pattern">This field is invalid.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>State</mat-label>
+        <mat-select
+          formControlName="state"
+          [ngClass]="{ 'is-invalid': submitted && f.state.errors }"
+        >
+          <mat-option [value]="state" *ngFor="let state of States"
+            >{{ state }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && f.state.errors">
+          <div *ngIf="f.state.errors.required">State is required</div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label> City </mat-label>
+        <input
+          matInput
+          formControlName="city"
+          placeholder="Enter City"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+        />
+        <mat-error *ngIf="submitted && f.city.errors">
+          <div *ngIf="f.city.errors.required">City is required</div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <input
+          matInput
+          readonly
+          [matDatepicker]="picker"
+          placeholder="Date of birth"
+          formControlName="dob"
+          (dateChange)="date($event)"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="submitted && f.dob.errors">
+          <div *ngIf="f.dob.errors.required">Date of Birth is required</div>
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">{{buttonName}}</button>
+    </form>
+  </div>
+</div>
